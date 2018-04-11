@@ -1,0 +1,5 @@
+.idea
+data/mp3/*
+data/npy/*
+data/npz/*
+__pycache__
