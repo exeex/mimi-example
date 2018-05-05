@@ -1,10 +1,10 @@
-from loader import get_data
+from loader2 import Data
 import torch
 import torch.nn as nn
 from torch.autograd import Variable
-import torch.utils.data as Data
 import matplotlib.pyplot as plt
 import torch.nn.functional as F
+import torch.utils.data
 import torch.optim as optim
 from torchvision.transforms import ToPILImage
 
@@ -44,12 +44,12 @@ net = Net()
 
 optimizer = optim.SGD(net.parameters(),lr=0.1)
 
-
-x, y = get_data()
-x = torch.from_numpy(x).float()
-y = torch.from_numpy(y).float()
-trainset = torch.utils.data.TensorDataset(x, y)
-trainloader = torch.utils.data.DataLoader(trainset, batch_size = 5,
+d = Data()
+# x, y = get_data()
+# x = torch.from_numpy(x).float()
+# y = torch.from_numpy(y).float()
+# trainset = torch.utils.data.TensorDataset(x, y)
+trainloader = torch.utils.data.DataLoader(d, batch_size = 5,
                                           shuffle = True, num_workers = 4)
 
 
@@ -57,8 +57,8 @@ trainloader = torch.utils.data.DataLoader(trainset, batch_size = 5,
 
 def train(epoch):
     net.train()
-    for batch_index, (inputs, labels) in enumerate(trainloader):
-        inputs, labels = Variable(inputs), Variable(labels)
+    for batch_index, data in enumerate(trainloader):
+        inputs, labels = Variable(data['cqt']), Variable(data['piano_roll'])
         optimizer.zero_grad()
         outputs = net(inputs)
 
