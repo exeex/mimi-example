@@ -38,7 +38,7 @@ def preprosess(fortest=False):
             aud, sr = librosa.load(infile_path, sr=None)
             D = librosa.cqt(aud,sr=sr, n_bins=720, bins_per_octave=120, hop_length=1024)
             M, P = librosa.magphase(D[::2,:])
-            M = pad_along_axis(M,1320,axis=1)
+            M = pad_along_axis(M,300,axis=1)
             data = librosa.amplitude_to_db(M)#.astype("float32")
         except Exception as err:
             print("load file %s fail," % infile_path, err)
@@ -60,7 +60,7 @@ def preprosess(fortest=False):
 
 
 if __name__ == "__main__":
-    preprosess(fortest=False)
+    preprosess(fortest=True)
 
     # a = np.identity(5)
     # b = pad_along_axis(a, 7, axis=1)
